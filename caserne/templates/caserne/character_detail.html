@@ -1,0 +1,53 @@
+{% extends 'caserne/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="bloc">
+    <div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="bulle {% if 'Bravo !' in message.message %} succes_couleur {% endif %}">
+                    {{ message.message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div class="personnage" style = "margin:auto; flex-direction: row; width: 40vw; gap: 5vw">
+            <div class="partie-gauche">
+                <h3>{{ character.id_character }}</h3>
+                <div>
+                    <p><b>état</b> : {{ character.etat }}</p>
+                    <p><b>lieu</b> : {{ character.lieu }}</p>
+                </div>
+                <img src="{% static 'photo/' %}{{character.lieu.lieu_photo}}" alt="{{character.lieu.id_equip}}">
+            </div>
+            <div class="partie-droite">
+                <b> Choisissez une action : </b>    
+                <form method="POST" class="post-form">{% csrf_token %}
+                    <div>{{ form.action }}</div>
+                    <div class="zone-bouton">
+                        <button type="submit" class="btn btn-outline-warning">OK</button>
+                        <a href="{% url 'character_equipement' %}">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h2>Les lieux</h2>
+        <div class="bloc-equipement">
+            {% for lieu in lieux %}
+                <div class="equipement {% if lieu.disponibilite == 'occupé' %}occupe{% endif %}">
+                    <h3>{{ lieu.id_equip }}</h3>
+                    <img src="{% static 'photo/' %}{{ lieu.lieu_photo }}" alt="{{lieu.id_equip}}">
+                    <p><b>disponibilité</b> : {{ lieu.disponibilite }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
