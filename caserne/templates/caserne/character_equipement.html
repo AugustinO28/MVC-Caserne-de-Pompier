@@ -34,6 +34,31 @@
             {% endfor %}
         </div>
     </div>
+    
+    <div class="info-box" id="infoBox">
+        <button class="close-btn" onclick="closeInfoBox()">×</button>
+        <b style="text-decoration: underline;">Bienvenue sur mon site ! </b> <br> Voici quelques informations pour commencer à gérer sa caserne de Pompier : 
+        <ul>
+            <li><b>Cliquez sur le nom</b> des équipes pour acceder à leur <b>panneau de contrôle</b>.</li>
+            <li>Les <b>lieux occupés</b> sont en rouge.</li>
+            <li>Les bulles de messages <b>vertes</b> sont des messages de <b>succès</b>.</li>
+            <li>Et les bulles de messages <b>rouges</b> sont des messages <b>d'erreur</b>.</li>
+        </ul>
+    </div>
+
+    <script>
+        function closeInfoBox() {
+            document.getElementById('infoBox').style.display = 'none';
+            localStorage.setItem('infoBoxClosed', 'true');
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('infoBoxClosed') === 'true') {
+                document.getElementById('infoBox').style.display = 'none';
+            }
+        }
+    </script>
+
 
 </div>
 
